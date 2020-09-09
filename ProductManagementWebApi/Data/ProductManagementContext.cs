@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductManagementWebApi.Models;
 
-namespace ProductManagementWebApi.Models
+namespace ProductManagementWebApi.Data
 {
     public class ProductManagementContext : DbContext
     {

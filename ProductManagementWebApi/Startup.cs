@@ -23,6 +23,10 @@ namespace ProductManagementWebApi
             
             string conn = Configuration.GetConnectionString("ProductManagementDB");
             services.AddDbContext<ProductManagementContext>(opt => opt.UseSqlServer(conn));
+
+            //YR: To use interface of repo
+            services.AddSingleton<IProductManagementRepo, ProductManagementRepo>();
+            
             services.AddControllers();
         }
 

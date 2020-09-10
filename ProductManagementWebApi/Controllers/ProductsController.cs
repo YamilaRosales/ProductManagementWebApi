@@ -30,14 +30,14 @@ namespace ProductManagementWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product =  _repository.GetProductAsync(id);
+            var product = await _repository.GetProductAsync(id);
 
             if (product == null)
             {
                 return NotFound();
             }
-
-            return await Task.FromResult(result: product);
+            return product;          
+            
         }
 
         // PUT: api/Products/5
@@ -88,7 +88,7 @@ namespace ProductManagementWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var product = _repository.GetProductAsync(id);
+            var product = await _repository.GetProductAsync(id);
             if (product == null)
                return NotFound();
             

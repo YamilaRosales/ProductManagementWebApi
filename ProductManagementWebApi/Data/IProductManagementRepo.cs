@@ -8,7 +8,7 @@ namespace ProductManagementWebApi.Data
     {
 
         Task<IEnumerable<Product>> GetProductsAsync();
-        Product GetProductAsync(int id);
+        Task<Product> GetProductAsync(int id);
         Task PutProductAsync(Product product);
         Task<Product> AddAsync(Product product);
         Task DeleteProductAsync(int id);

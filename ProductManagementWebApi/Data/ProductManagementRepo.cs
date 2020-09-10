@@ -15,9 +15,9 @@ namespace ProductManagementWebApi.Data
         {
             _context = context;
         }
-        public Product GetProductAsync(int id)
+        public async Task<Product> GetProductAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.FirstOrDefaultAsync(i => i.Id == id);
         }
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {

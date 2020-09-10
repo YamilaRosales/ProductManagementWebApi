@@ -1,4 +1,5 @@
-﻿using ProductManagementWebApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductManagementWebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,24 +15,45 @@ namespace ProductManagementWebApi.Data
         {
             _context = context;
         }
-        public Product GetProduct(int id)
+        public Product GetProductAsync(int id)
         {
             throw new NotImplementedException();
         }
-
-        public async Task<IEnumerable<Product>> GetProducts()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             //TODO: ToListAsync()
             return await Task.Run(() => _context.Products.ToList()).ConfigureAwait(false);
         }
-
-        public async Task<Product> Add(Product product) 
+        public async Task PutProductAsync(Product product)
+        {
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return;
+        }
+        public async Task<Product> AddAsync(Product product) 
         {
 
-            var productNew = _context.Products.Add(product);
+            await _context.Products.AddAsync(product);
             
             await _context.SaveChangesAsync();
-            return Task.Run(productNew);
+
+            return product;
         }
+
+        public async Task DeleteProductAsync(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+
+            return;
+        }
+
+        public bool ProductExists(int id)
+        {
+            return _context.Products.Any(e => e.Id == id);
+        }
+
     }
 }
